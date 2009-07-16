@@ -29,7 +29,6 @@ class PinnacleScraper
 			post_request(@sporturls[name], "", headers) { |string|
 				text = text + string
 			}
-			puts(text)
 			@games[name] = text.scan(@reg_expr[name])
 		end
 	end
