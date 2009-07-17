@@ -7,14 +7,28 @@ class PinnacleScraper
 	def initialize(sports)
 		@sports = sports
 		@sporturls = {
-			'Baseball' => 'http://www.pinnaclesports.com/League/Baseball/MLB/1/Lines.aspx',
-			'Basketball' => 'http://www.pinnaclesports.com/League/Basketball/NBA/1/Lines.aspx',
-			'Football' => 'http://www.pinnaclesports.com/League/Football/NFL/1/Lines.aspx'
+# Meiner Meinung nach sollten die Sportarten nach Ligen unterteilt werden
+			'Baseball/MLB' => 'http://www.pinnaclesports.com/League/Baseball/MLB/1/Lines.aspx',
+			'Basketball/NBA' => 'http://www.pinnaclesports.com/League/Basketball/NBA/1/Lines.aspx',
+			'Football/NFL' => 'http://www.pinnaclesports.com/League/Football/NFL/1/Lines.aspx',
+
+			'Baseball' => 'http://www.pinnaclesports.com/League/Baseball/MLB/1/Lines.aspx'
+		}
+
+# Sportart: hunderter, Ligen: fortlaufende Nummer
+# Die IDs kann man vielleicht besser in ein helper-script auslagern...
+		@sportids = {
+			'Baseball/MLB' => 101
+			'Basketball/NBA' => 201
+			'Football/NFL' => 301
+
+			'Baseball' => 100
 		}
 		@reg_expr = {
+			'Baseball/MLB' => /<td>(.{5,10})<\/td><td>(\d{3,4})<\/td><td>(.{5,25})<BR.*<\/td><td>&nbsp;&nbsp;&nbsp;(.{5,6})<\/td><td>OVER.*<\/td>\r\n..*\r\n..<td>(.{5,10})<\/td><td>(\d{3,4})<\/td><td>(.{5,25})<BR.*<\/td><td>&nbsp;&nbsp;&nbsp;(.{5,6})<\/td>/,
+# Brauche ich auch solches Kompatibilitätszeug?
 			'Baseball' => /<td>(.{5,10})<\/td><td>(\d{3,4})<\/td><td>(.{5,25})<BR.*<\/td><td>&nbsp;&nbsp;&nbsp;(.{5,6})<\/td><td>OVER.*<\/td>\r\n..*\r\n..<td>(.{5,10})<\/td><td>(\d{3,4})<\/td><td>(.{5,25})<BR.*<\/td><td>&nbsp;&nbsp;&nbsp;(.{5,6})<\/td>/
 		}
-#game: tag, id1, team1, odd1, zeit, id2, team2, odd2
 		@games = {}
 	end
 
@@ -25,22 +39,30 @@ class PinnacleScraper
   		}
 
 		@sports.each do |name|
+			puts("Hole #{name}-Daten von Pinnclesports")
 			text = ""
 			post_request(@sporturls[name], "", headers) { |string|
 				text = text + string
 			}
+#game: tag, id1, team1, odd1, zeit, id2, team2, odd2
 			@games[name] = text.scan(@reg_expr[name])
+			if(text == "")
+				puts("Es konnten keine Daten gefunden werden")
+			end
 		end
 	end
 
 	def write_to_file(filename="pinnacle.xml")
+		puts("Schreibe Daten in #{filename}")
 		File.open(filename, "w") { |file|
 			file.puts("<bookmaker name=\"PinnacleSports\">")
 			@sports.each do |sport|
-				file.puts("<sport name=\"#{sport}\" id=\"1\">")
+				file.puts("<sport name=\"#{sport}\" id=\"#{@sportids[sport]}\">")
 				@games[sport].each do |game|
+# Wie soll sich die GameID berechnen?
 					file.puts("<game id=\"1\">")
 
+# Das Datum sollte umgerechnet werden (zB in yyyymmddhh)
 					file.puts("<date>", game[0], "</date>")
 					file.puts("<time>", game[4], "</time>")
 
@@ -56,13 +78,14 @@ class PinnacleScraper
 			file.puts("</bookmaker>")
 			file.close()
 		}
+		puts("Fertig")
 	end
 end
 
 #nur wenn das Script direkt gestartet wird, wird dieser Teil ausgeführt
 if __FILE__ == $0
 
-sports = ['Baseball']
+sports = ['Baseball/MLB']
 ps = PinnacleScraper.new(sports)
 ps.get_odds()
 ps.write_to_file()
