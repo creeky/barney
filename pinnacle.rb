@@ -18,9 +18,9 @@ class PinnacleScraper
 # Sportart: hunderter, Ligen: fortlaufende Nummer
 # Die IDs kann man vielleicht besser in ein helper-script auslagern...
 		@sportids = {
-			'Baseball/MLB' => 101
-			'Basketball/NBA' => 201
-			'Football/NFL' => 301
+			'Baseball/MLB' => 101,
+			'Basketball/NBA' => 201,
+			'Football/NFL' => 301,
 
 			'Baseball' => 100
 		}
