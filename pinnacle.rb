@@ -52,7 +52,7 @@ class PinnacleScraper
 		end
 	end
 
-	def write_to_file(filename="pinnacle.xml")
+	def write_to_file(filename="output/pinnacle.xml")
 		puts("Schreibe Daten in #{filename}")
 		File.open(filename, "w") { |file|
 			file.puts("<bookmaker name=\"PinnacleSports\">")
