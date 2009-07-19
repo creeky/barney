@@ -1,0 +1,65 @@
+http://pda.intertops.com/German/selectbet.asp?id=&os=pRbtgge&sprtyp=BB&scrncd=SM&compno=1524
+MLB-Übersicht?
+
+http://pda.intertops.com/German/getsmbettype.asp?id=&os=pRbtgge&sprtyp=BB&scrncd=SM&compno=1524&machno=1524&betno=624583
+http://pda.intertops.com/German/smbet.asp?       id=&os=pRbtgge&sprtyp=BB&scrncd=SM&compno=1524&            betno=624583&smcstype=none&bettyp=SM
+erstes spiel...
+
+http://pda.intertops.com/German/smbet.asp?       id=&os=pRbtgge&sprtyp=BB&scrncd=SM&compno=1524&            betno=624584&smcstype=none&bettyp=SM
+zweites spiel...
+
+compno=1524 = MLB?
+sprtyp=BB = Baseball
+os=pRbtgge = dezimalformat (tege = am)
+
+
+Übersichtsseite:
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<HTML>
+<BODY>
+
+<A href="home.asp?id=&os=pRbtege">HOME</A>&nbsp;&nbsp;
+<A href="account.asp?id=&os=pRbtege">KONTO</A>&nbsp;&nbsp;
+<A href="bets.asp?id=&os=pRbtege">WETTEN</A>
+
+<br>
+<A href="bettype.asp?id=&os=pRbtege&sprtyp=BB&scrncd=SM">&lt;&lt;&lt;</A>
+<br>
+<b>Matches <b>****MLB Lines****</b></b>
+<br>
+
+<A href="getsmbettype.asp?id=&os=pRbtege&sprtyp=BB&scrncd=SM&compno=1524&machno=1524&betno=624583">COL (J Marquis) v SDG (M Latos)</A><br>
+
+<A href="getsmbettype.asp?id=&os=pRbtege&sprtyp=BB&scrncd=SM&compno=1524&machno=1524&betno=624584">HOU (R Ortiz) v LOS (H Kuroda)</A><br>
+
+<A href="getsmbettype.asp?id=&os=pRbtege&sprtyp=BB&scrncd=SM&compno=1524&machno=1524&betno=624585">NYM (F Nieve) v ATL (J Vaquez)</A><br>
+
+<A href="getsmbettype.asp?id=&os=pRbtege&sprtyp=BB&scrncd=SM&compno=1524&machno=1524&betno=624591">LAA (J Lackey) v OAK (B Anderson)</A><br>
+
+<A href="getsmbettype.asp?id=&os=pRbtege&sprtyp=BB&scrncd=SM&compno=1524&machno=1524&betno=624592">MIN (F Liriano) v TEX (D Holland)</A><br>
+
+<A href="getsmbettype.asp?id=&os=pRbtege&sprtyp=BB&scrncd=SM&compno=1524&machno=1524&betno=624647">ARI (Y Petit) v STL (J Pineiro)</A><br>
+
+
+</BODY>
+</HTML>
+
+						"getsmbettype.asp?id=&os=pRbtgge&sprtyp=BB&scrncd=SM&compno=1524&machno=1524&betno=624585" <= nur das betno ist wichtig
+http://pda.intertops.com/German/smbet.asp?id=&os=pRbtgge&sprtyp=BB&scrncd=SM&compno=1524&			 betno=624585	&smcstype=none&bettyp=SM
+
+Mannschaftsliste:
+
+NYM		New York Mets
+COL		Colorado Rockies
+SDG		San Diego Padres
+HOU		Houston Astros
+LOS		Los Angeles Dodgers
+ATL		Atlanta Braves
+LAA		LAA Angels
+OAK		Oakland Athletics
+MIN		Minnesota Twins
+TEX		Texas Rangers
+ARI
+STL
