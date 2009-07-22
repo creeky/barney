@@ -8,7 +8,7 @@ class ExpektScraper
 		@sports = sports
 		@sporturls = {
 # Meiner Meinung nach sollten die Sportarten nach Ligen unterteilt werden
-			'Baseball/MLB' => 'http://www.expekt.com/odds/eventsodds.jsp?oddstype=&gatype=-1&searchString=&betcategoryId=BSBMENUSAUSAFST&range=1000000&sortby=2'
+			'Baseball/MLB' => 'http://www.expekt.com/odds/eventsodds.jsp?betcategoryId=BSBMENUSAUSAFST&range=1000000&sortby=2'
 		}
 
 # Sportart: hunderter, Ligen: fortlaufende Nummer
@@ -29,8 +29,8 @@ class ExpektScraper
 	def get_odds
 
 		headers = {
-		    'Cookie' => 'JSESSIONID=A4B4AA7C5DDDAA07D1CD1E19C95107B7; expekt_lang=ger; expekt_partner=notag; __utma=40065014.802781510971680000.1248290951.1248290951.1248290951.1; __utmc=40065014; __utmz=40065014.1248290951.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)'
-  		}
+		    'Cookie' => 'expekt_lang=ger'
+		}
 
 		@sports.each do |name|
 			puts("Hole #{name}-Daten von Expekt")
@@ -38,9 +38,7 @@ class ExpektScraper
 			get_request(@sporturls[name], headers) { |string|
 				text = text + string
 			}
-File.open("junk.html", "w") { |file|
-file.puts text
-file.close() }
+
 #game: time, team1, team2, odd1, odd2
 			@games[name] = text.scan(@reg_expr[name])
 			if(text == "")
