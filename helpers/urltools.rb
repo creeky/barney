@@ -25,13 +25,12 @@ end
 
 def get_request(url, headers={})
   url = URI.parse(url)
-  req = Net::HTTP::Get.new(url.path)
+  req = Net::HTTP::Get.new(url.path + (url.query.empty? ? '' : '?' + url.query))
   headers.each_pair {
     |k, v|
     req[k] = v
   }
 
-  req.set_content_type("application/x-www-form-urlencoded")
   res = Net::HTTP.new(url.host, url.port).start { |http| http.request(req) }
   
   case res
