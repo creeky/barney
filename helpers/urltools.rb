@@ -23,6 +23,27 @@ def post_request(url, postbody, headers={})
   end
 end
 
+def get_request(url, headers={})
+  url = URI.parse(url)
+  req = Net::HTTP::Get.new(url.path)
+  headers.each_pair {
+    |k, v|
+    req[k] = v
+  }
+
+  req.set_content_type("application/x-www-form-urlencoded")
+  res = Net::HTTP.new(url.host, url.port).start { |http| http.request(req) }
+  
+  case res
+  when Net::HTTPSuccess, Net::HTTPRedirection
+    yield res.body if block_given?
+  else
+    res.error!
+  end
+end
+
+
+
 class CGI
   def CGI.unescapeallHTML(html)
     unescapeHTML(html).gsub('&auml;', 'ä').gsub('&Auml;', 'Ä').gsub('&uuml;', 'ü').gsub('&Uuml;', 'Ü').gsub('&ouml;', 'ö').gsub('&Ouml;', 'Ö')
