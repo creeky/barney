@@ -1,6 +1,7 @@
 require 'cgi'
 require 'uri'
 require 'net/http'
+require 'net/https'
 
 def post_request(url, postbody, headers={})
   url = URI.parse(url)
@@ -18,12 +19,12 @@ def post_request(url, postbody, headers={})
   case res
   when Net::HTTPSuccess, Net::HTTPRedirection
     yield res.body if block_given?
-  else
+  els
     res.error!
   end
 end
 
-def get_request(url, headers={})
+def get_request(url, headers={}, use_ssl=false)
   url = URI.parse(url)
   req = Net::HTTP::Get.new(url.path + (url.query.empty? ? '' : '?' + url.query))
   headers.each_pair {
@@ -31,7 +32,9 @@ def get_request(url, headers={})
     req[k] = v
   }
 
-  res = Net::HTTP.new(url.host, url.port).start { |http| http.request(req) }
+  http = Net::HTTP.new(url.host, url.port)
+  http.use_ssl = use_ssl
+  res = http.start { |http| http.request(req) }
   
   case res
   when Net::HTTPSuccess, Net::HTTPRedirection
