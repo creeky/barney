@@ -1,5 +1,5 @@
 #!/usr/bin/ruby
-# Script zum Scrapen der Wetten von pinnaclesports.com
+# Script zum Scrapen der Wetten von expekt.com
 
 require 'helpers/urltools.rb'
 
@@ -51,7 +51,7 @@ class ExpektScraper
 #			"STL"=>"St Louis Cardinals",
 			"Tampa Bay Rays"=>"Tampa Bay Rays",
 #			"TEX"=>"Texas Rangers",
-			"Toronto Bluejays"=>"Toronto Blue Jays",
+			"Toronto Bluejays"=>"Toronto Blue Jays"
 #			"WAS"=>"Washington Nationals"			
 		}
 	end
