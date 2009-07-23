@@ -1,5 +1,5 @@
 #!/usr/bin/ruby
-# Script zum Scrapen der Wetten von pinnaclesports.com
+# Script zum Scrapen der Wetten von expekt.com
 
 require 'helpers/urltools.rb'
 
