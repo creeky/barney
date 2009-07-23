@@ -47,7 +47,7 @@ class ExpektScraper
 		end
 	end
 
-	def write_to_file(filename="expekt.xml")
+	def write_to_file(filename="output/expekt.xml")
 		puts("Schreibe Daten in #{filename}")
 		File.open(filename, "w") { |file|
 			file.puts("<bookmaker name=\"Expekt\">")
