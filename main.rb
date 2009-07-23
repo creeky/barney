@@ -35,7 +35,7 @@ if(outputdir == "")
 end
 if(anbieter.empty?())
 	puts("empty")
-	anbieter = ["pinnacle", "intertops", "expekt"]
+	anbieter = ["pinnacle", "intertops", "expekt", "bwin"]
 end
 
 # pinnacle:
@@ -66,4 +66,14 @@ if(anbieter.include?("expekt"))
 	s = ExpektScraper.new(sports)
 	s.get_odds()
 	s.write_to_file( outputdir + "/expekt.xml")
+end
+
+# bwin:
+
+if(anbieter.include?("bwin"))
+	require 'bwin.rb'
+
+	s = BWinScraper.new(sports)
+	s.get_odds()
+	s.write_to_file( outputdir + "/bwin.xml")
 end
