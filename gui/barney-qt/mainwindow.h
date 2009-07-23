@@ -1,7 +1,9 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QtGui/QMainWindow>
+#include <QtGui>
+#include <QtXml>
+#include <QDomDocument>
 
 namespace Ui
 {
@@ -18,6 +20,7 @@ public:
 
 private:
     Ui::MainWindowClass *ui;
+    QDomDocument xmlfile;
 
 private slots:
     void on_actionBeenden_triggered();

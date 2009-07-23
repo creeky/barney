@@ -33,9 +33,20 @@
       </item>
       <item>
        <widget class="QTreeWidget" name="sportartenliste">
+        <attribute name="headerVisible">
+         <bool>false</bool>
+        </attribute>
+        <attribute name="headerVisible">
+         <bool>false</bool>
+        </attribute>
         <column>
          <property name="text">
           <string>Sportarten / Ligen</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>id</string>
          </property>
         </column>
        </widget>

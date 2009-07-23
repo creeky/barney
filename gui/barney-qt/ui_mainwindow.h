@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'mainwindow.ui'
 **
-** Created: Thu Jul 23 14:58:38 2009
+** Created: Thu Jul 23 16:47:32 2009
 **      by: Qt User Interface Compiler version 4.5.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -16,13 +16,11 @@
 #include <QtGui/QButtonGroup>
 #include <QtGui/QHBoxLayout>
 #include <QtGui/QHeaderView>
-#include <QtGui/QListWidget>
 #include <QtGui/QMainWindow>
 #include <QtGui/QMenu>
 #include <QtGui/QMenuBar>
 #include <QtGui/QStatusBar>
 #include <QtGui/QTableWidget>
-#include <QtGui/QToolBar>
 #include <QtGui/QTreeWidget>
 #include <QtGui/QVBoxLayout>
 #include <QtGui/QWidget>
@@ -37,13 +35,12 @@ public:
     QWidget *centralWidget;
     QVBoxLayout *verticalLayout;
     QHBoxLayout *horizontalLayout;
-    QListWidget *listWidget;
-    QTreeWidget *treeWidget;
-    QTableWidget *tableWidget;
+    QTableWidget *anbieterliste;
+    QTreeWidget *sportartenliste;
+    QTableWidget *spielliste;
     QMenuBar *menuBar;
     QMenu *menuDatei;
     QMenu *menuBearbeiten;
-    QToolBar *mainToolBar;
     QStatusBar *statusBar;
 
     void setupUi(QMainWindow *MainWindowClass)
@@ -64,43 +61,50 @@ public:
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setSpacing(6);
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
-        listWidget = new QListWidget(centralWidget);
-        listWidget->setObjectName(QString::fromUtf8("listWidget"));
+        anbieterliste = new QTableWidget(centralWidget);
+        if (anbieterliste->columnCount() < 2)
+            anbieterliste->setColumnCount(2);
+        QTableWidgetItem *__qtablewidgetitem = new QTableWidgetItem();
+        anbieterliste->setHorizontalHeaderItem(0, __qtablewidgetitem);
+        QTableWidgetItem *__qtablewidgetitem1 = new QTableWidgetItem();
+        anbieterliste->setHorizontalHeaderItem(1, __qtablewidgetitem1);
+        anbieterliste->setObjectName(QString::fromUtf8("anbieterliste"));
 
-        horizontalLayout->addWidget(listWidget);
+        horizontalLayout->addWidget(anbieterliste);
 
-        treeWidget = new QTreeWidget(centralWidget);
-        treeWidget->setObjectName(QString::fromUtf8("treeWidget"));
+        sportartenliste = new QTreeWidget(centralWidget);
+        sportartenliste->setObjectName(QString::fromUtf8("sportartenliste"));
+        sportartenliste->header()->setVisible(false);
 
-        horizontalLayout->addWidget(treeWidget);
+        horizontalLayout->addWidget(sportartenliste);
 
 
         verticalLayout->addLayout(horizontalLayout);
 
-        tableWidget = new QTableWidget(centralWidget);
-        if (tableWidget->columnCount() < 7)
-            tableWidget->setColumnCount(7);
-        QTableWidgetItem *__qtablewidgetitem = new QTableWidgetItem();
-        tableWidget->setHorizontalHeaderItem(0, __qtablewidgetitem);
-        QTableWidgetItem *__qtablewidgetitem1 = new QTableWidgetItem();
-        tableWidget->setHorizontalHeaderItem(1, __qtablewidgetitem1);
+        spielliste = new QTableWidget(centralWidget);
+        if (spielliste->columnCount() < 7)
+            spielliste->setColumnCount(7);
         QTableWidgetItem *__qtablewidgetitem2 = new QTableWidgetItem();
-        tableWidget->setHorizontalHeaderItem(2, __qtablewidgetitem2);
+        spielliste->setHorizontalHeaderItem(0, __qtablewidgetitem2);
         QTableWidgetItem *__qtablewidgetitem3 = new QTableWidgetItem();
-        tableWidget->setHorizontalHeaderItem(3, __qtablewidgetitem3);
+        spielliste->setHorizontalHeaderItem(1, __qtablewidgetitem3);
         QTableWidgetItem *__qtablewidgetitem4 = new QTableWidgetItem();
-        tableWidget->setHorizontalHeaderItem(4, __qtablewidgetitem4);
+        spielliste->setHorizontalHeaderItem(2, __qtablewidgetitem4);
         QTableWidgetItem *__qtablewidgetitem5 = new QTableWidgetItem();
-        tableWidget->setHorizontalHeaderItem(5, __qtablewidgetitem5);
+        spielliste->setHorizontalHeaderItem(3, __qtablewidgetitem5);
         QTableWidgetItem *__qtablewidgetitem6 = new QTableWidgetItem();
-        tableWidget->setHorizontalHeaderItem(6, __qtablewidgetitem6);
-        if (tableWidget->rowCount() < 1)
-            tableWidget->setRowCount(1);
-        tableWidget->setObjectName(QString::fromUtf8("tableWidget"));
-        tableWidget->setRowCount(1);
-        tableWidget->setColumnCount(7);
+        spielliste->setHorizontalHeaderItem(4, __qtablewidgetitem6);
+        QTableWidgetItem *__qtablewidgetitem7 = new QTableWidgetItem();
+        spielliste->setHorizontalHeaderItem(5, __qtablewidgetitem7);
+        QTableWidgetItem *__qtablewidgetitem8 = new QTableWidgetItem();
+        spielliste->setHorizontalHeaderItem(6, __qtablewidgetitem8);
+        if (spielliste->rowCount() < 1)
+            spielliste->setRowCount(1);
+        spielliste->setObjectName(QString::fromUtf8("spielliste"));
+        spielliste->setRowCount(1);
+        spielliste->setColumnCount(7);
 
-        verticalLayout->addWidget(tableWidget);
+        verticalLayout->addWidget(spielliste);
 
         MainWindowClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindowClass);
@@ -111,9 +115,6 @@ public:
         menuBearbeiten = new QMenu(menuBar);
         menuBearbeiten->setObjectName(QString::fromUtf8("menuBearbeiten"));
         MainWindowClass->setMenuBar(menuBar);
-        mainToolBar = new QToolBar(MainWindowClass);
-        mainToolBar->setObjectName(QString::fromUtf8("mainToolBar"));
-        MainWindowClass->addToolBar(Qt::TopToolBarArea, mainToolBar);
         statusBar = new QStatusBar(MainWindowClass);
         statusBar->setObjectName(QString::fromUtf8("statusBar"));
         MainWindowClass->setStatusBar(statusBar);
@@ -133,22 +134,27 @@ public:
         MainWindowClass->setWindowTitle(QApplication::translate("MainWindowClass", "MainWindow", 0, QApplication::UnicodeUTF8));
         actionBeenden->setText(QApplication::translate("MainWindowClass", "Beenden", 0, QApplication::UnicodeUTF8));
         actionEinstellungen->setText(QApplication::translate("MainWindowClass", "Einstellungen", 0, QApplication::UnicodeUTF8));
-        QTreeWidgetItem *___qtreewidgetitem = treeWidget->headerItem();
+        QTableWidgetItem *___qtablewidgetitem = anbieterliste->horizontalHeaderItem(0);
+        ___qtablewidgetitem->setText(QApplication::translate("MainWindowClass", "Anbieter", 0, QApplication::UnicodeUTF8));
+        QTableWidgetItem *___qtablewidgetitem1 = anbieterliste->horizontalHeaderItem(1);
+        ___qtablewidgetitem1->setText(QApplication::translate("MainWindowClass", "Verwenden?", 0, QApplication::UnicodeUTF8));
+        QTreeWidgetItem *___qtreewidgetitem = sportartenliste->headerItem();
+        ___qtreewidgetitem->setText(1, QApplication::translate("MainWindowClass", "id", 0, QApplication::UnicodeUTF8));
         ___qtreewidgetitem->setText(0, QApplication::translate("MainWindowClass", "Sportarten / Ligen", 0, QApplication::UnicodeUTF8));
-        QTableWidgetItem *___qtablewidgetitem = tableWidget->horizontalHeaderItem(0);
-        ___qtablewidgetitem->setText(QApplication::translate("MainWindowClass", "Spiel ID", 0, QApplication::UnicodeUTF8));
-        QTableWidgetItem *___qtablewidgetitem1 = tableWidget->horizontalHeaderItem(1);
-        ___qtablewidgetitem1->setText(QApplication::translate("MainWindowClass", "Team 1", 0, QApplication::UnicodeUTF8));
-        QTableWidgetItem *___qtablewidgetitem2 = tableWidget->horizontalHeaderItem(2);
-        ___qtablewidgetitem2->setText(QApplication::translate("MainWindowClass", "Odd 1", 0, QApplication::UnicodeUTF8));
-        QTableWidgetItem *___qtablewidgetitem3 = tableWidget->horizontalHeaderItem(3);
-        ___qtablewidgetitem3->setText(QApplication::translate("MainWindowClass", "Anbieter 1", 0, QApplication::UnicodeUTF8));
-        QTableWidgetItem *___qtablewidgetitem4 = tableWidget->horizontalHeaderItem(4);
-        ___qtablewidgetitem4->setText(QApplication::translate("MainWindowClass", "Team 2", 0, QApplication::UnicodeUTF8));
-        QTableWidgetItem *___qtablewidgetitem5 = tableWidget->horizontalHeaderItem(5);
-        ___qtablewidgetitem5->setText(QApplication::translate("MainWindowClass", "Odd 2", 0, QApplication::UnicodeUTF8));
-        QTableWidgetItem *___qtablewidgetitem6 = tableWidget->horizontalHeaderItem(6);
-        ___qtablewidgetitem6->setText(QApplication::translate("MainWindowClass", "Anbieter 2", 0, QApplication::UnicodeUTF8));
+        QTableWidgetItem *___qtablewidgetitem2 = spielliste->horizontalHeaderItem(0);
+        ___qtablewidgetitem2->setText(QApplication::translate("MainWindowClass", "Spiel ID", 0, QApplication::UnicodeUTF8));
+        QTableWidgetItem *___qtablewidgetitem3 = spielliste->horizontalHeaderItem(1);
+        ___qtablewidgetitem3->setText(QApplication::translate("MainWindowClass", "Team 1", 0, QApplication::UnicodeUTF8));
+        QTableWidgetItem *___qtablewidgetitem4 = spielliste->horizontalHeaderItem(2);
+        ___qtablewidgetitem4->setText(QApplication::translate("MainWindowClass", "Odd 1", 0, QApplication::UnicodeUTF8));
+        QTableWidgetItem *___qtablewidgetitem5 = spielliste->horizontalHeaderItem(3);
+        ___qtablewidgetitem5->setText(QApplication::translate("MainWindowClass", "Anbieter 1", 0, QApplication::UnicodeUTF8));
+        QTableWidgetItem *___qtablewidgetitem6 = spielliste->horizontalHeaderItem(4);
+        ___qtablewidgetitem6->setText(QApplication::translate("MainWindowClass", "Team 2", 0, QApplication::UnicodeUTF8));
+        QTableWidgetItem *___qtablewidgetitem7 = spielliste->horizontalHeaderItem(5);
+        ___qtablewidgetitem7->setText(QApplication::translate("MainWindowClass", "Odd 2", 0, QApplication::UnicodeUTF8));
+        QTableWidgetItem *___qtablewidgetitem8 = spielliste->horizontalHeaderItem(6);
+        ___qtablewidgetitem8->setText(QApplication::translate("MainWindowClass", "Anbieter 2", 0, QApplication::UnicodeUTF8));
         menuDatei->setTitle(QApplication::translate("MainWindowClass", "Datei", 0, QApplication::UnicodeUTF8));
         menuBearbeiten->setTitle(QApplication::translate("MainWindowClass", "Bearbeiten", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
