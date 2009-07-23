@@ -18,10 +18,21 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
-       <widget class="QListWidget" name="listWidget"/>
+       <widget class="QTableWidget" name="anbieterliste">
+        <column>
+         <property name="text">
+          <string>Anbieter</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Verwenden?</string>
+         </property>
+        </column>
+       </widget>
       </item>
       <item>
-       <widget class="QTreeWidget" name="treeWidget">
+       <widget class="QTreeWidget" name="sportartenliste">
         <column>
          <property name="text">
           <string>Sportarten / Ligen</string>
@@ -32,7 +43,7 @@
      </layout>
     </item>
     <item>
-     <widget class="QTableWidget" name="tableWidget">
+     <widget class="QTableWidget" name="spielliste">
       <property name="rowCount">
        <number>1</number>
       </property>
@@ -102,14 +113,6 @@
    </widget>
    <addaction name="menuDatei"/>
    <addaction name="menuBearbeiten"/>
-  </widget>
-  <widget class="QToolBar" name="mainToolBar">
-   <attribute name="toolBarArea">
-    <enum>TopToolBarArea</enum>
-   </attribute>
-   <attribute name="toolBarBreak">
-    <bool>false</bool>
-   </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionBeenden">
