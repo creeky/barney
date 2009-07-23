@@ -1,5 +1,5 @@
 #!/usr/bin/ruby
-# Script zum Scrapen der Wetten von pinnaclesports.com
+# Script zum Scrapen der Wetten von expekt.com
 
 require 'helpers/urltools.rb'
 
@@ -24,6 +24,36 @@ class ExpektScraper
 			'Baseball/MLB' => /<tr class="oddsRow[1,2]">.+?<td align="center"> (\d{1,2}:\d{2}) <\/td>.+?<td align="center">([^-]+)-([^<]+).+?<td align="center">.+?<td align="center">.+?(\d{1,2}.\d{2}).+?<td align="center">.+?<td align="center">.+?(\d{1,2}.\d{2})/m
 		}
 		@games = {}
+		@teams = {
+			"Arizona Diamondbacks"=>"Arizona D-Backs",
+			"Atlanta Braves"=>"Atlanta Braves",
+#			"BAL"=>"Baltimore Orioles",
+#			"BOS"=>"Boston Red Sox",
+#			"CHC"=>"Chicago Cubs",
+#			"CIN"=>"Cincinnati Reds",
+			"Cleveland Indians"=>"Cleveland Indians",
+#			"COL"=>"Colorado Rockies",
+			"Chicago White Sox"=>"Chicago White Sox",
+			"Detroit Tigers"=>"Detroit Tigers",
+#			"HOU"=>"Houston Astros",
+			"Los Angeles Angels"=>"LAA Angels",
+#			"LOS"=>"Los Angeles Dodgers",
+#			"MIL"=>"Milwaukee Brevers",
+			"Minnesota Twins"=>"Minnesota Twins",
+#			"NYM"=>"New York Mets",
+			"New York Yankees"=>"New York Yankees",
+			"Oakland Athletics"=>"Oakland Athletics",
+			"Philadelphia Phillies"=>"Philadelphia Phillies",
+			"Pittsburgh Pirates"=>"Pittsburgh Pirates",
+			"San Diego Padres"=>"San Diego Padres",
+			"Seattle Mariners"=>"Seattle Mariners",
+			"San Francisco Giants"=>"San Francisco Giants",
+#			"STL"=>"St Louis Cardinals",
+			"Tampa Bay Rays"=>"Tampa Bay Rays",
+#			"TEX"=>"Texas Rangers",
+			"Toronto Bluejays"=>"Toronto Blue Jays"
+#			"WAS"=>"Washington Nationals"			
+		}
 	end
 
 	def get_odds
@@ -47,7 +77,7 @@ class ExpektScraper
 		end
 	end
 
-	def write_to_file(filename="expekt.xml")
+	def write_to_file(filename="output/expekt.xml")
 		puts("Schreibe Daten in #{filename}")
 		File.open(filename, "w") { |file|
 			file.puts("<bookmaker name=\"Expekt\">")
@@ -61,9 +91,9 @@ class ExpektScraper
 					file.puts("<date>", "N/A", "</date>")
 					file.puts("<time>", game[0], "</time>")
 
-					file.puts("<team1 id=\"N/A\">", game[1].strip, "</team1>")
+					file.puts("<team1 id=\"N/A\">", @teams[game[1].strip], "</team1>")
 					file.puts("<odd1>", game[3], "</odd1>")
-					file.puts("<team2 id=\"N/A\">", game[2].strip, "</team2>")
+					file.puts("<team2 id=\"N/A\">", @teams[game[2].strip], "</team2>")
 					file.puts("<odd2>", game[4], "</odd2>")
 
 					file.puts("</game>")
