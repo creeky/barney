@@ -19,7 +19,7 @@ def post_request(url, postbody, headers={})
   case res
   when Net::HTTPSuccess, Net::HTTPRedirection
     yield res.body if block_given?
-  els
+  else
     res.error!
   end
 end

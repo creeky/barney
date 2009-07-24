@@ -34,7 +34,6 @@ if(outputdir == "")
 	outputdir = "output"
 end
 if(anbieter.empty?())
-	puts("empty")
 	anbieter = ["pinnacle", "intertops", "expekt", "bwin"]
 end
 
