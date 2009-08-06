@@ -33,6 +33,7 @@
   <valuemap type="QVariantMap" >
    <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString" >Debug</value>
    <value key="QtVersionId" type="int" >2</value>
+   <value key="addQDumper" type="" ></value>
    <value key="buildDirectory" type="QString" >/home/thomas/Projects/barney/gui/barney-qt</value>
   </valuemap>
  </data>
@@ -41,6 +42,7 @@
   <valuemap type="QVariantMap" >
    <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString" >Release</value>
    <value key="QtVersionId" type="int" >2</value>
+   <value key="addQDumper" type="" ></value>
   </valuemap>
  </data>
  <data>
@@ -156,7 +158,7 @@
   <valuemap type="QVariantMap" >
    <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString" >Debug</value>
    <valuelist key="abstractProcess.Environment" type="QVariantList" >
-    <value type="QString" >DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-hFCScmWhSJ,guid=13a329179279a9174ee7d9ea4a6808ba</value>
+    <value type="QString" >DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-QgO86owqj3,guid=6ac1cc7df0d2d73089ac8dee4a7ad683</value>
     <value type="QString" >DESKTOP_SESSION=default</value>
     <value type="QString" >DESKTOP_STARTUP_ID=</value>
     <value type="QString" >DISPLAY=:0.0</value>
@@ -164,8 +166,8 @@
     <value type="QString" >GDM_LANG=de_DE.UTF-8</value>
     <value type="QString" >GDM_XSERVER_LOCATION=local</value>
     <value type="QString" >GNOME_DESKTOP_SESSION_ID=this-is-deprecated</value>
-    <value type="QString" >GNOME_KEYRING_SOCKET=/tmp/keyring-Nu9J6M/socket</value>
-    <value type="QString" >GPG_AGENT_INFO=/tmp/seahorse-knBm5U/S.gpg-agent:3946:1</value>
+    <value type="QString" >GNOME_KEYRING_SOCKET=/tmp/keyring-sOgdFn/socket</value>
+    <value type="QString" >GPG_AGENT_INFO=/tmp/seahorse-b637au/S.gpg-agent:3948:1</value>
     <value type="QString" >GTK_MODULES=canberra-gtk-module:gail:atk-bridge</value>
     <value type="QString" >GTK_RC_FILES=/etc/gtk/gtkrc:/home/thomas/.gtkrc-1.2-gnome2</value>
     <value type="QString" >HOME=/home/thomas</value>
@@ -175,16 +177,16 @@
     <value type="QString" >PATH=/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/opt/open2x/gcc-4.1.1-glibc-2.3.6/bin</value>
     <value type="QString" >PWD=/home/thomas</value>
     <value type="QString" >QTDIR=/usr</value>
-    <value type="QString" >SESSION_MANAGER=local/argalos:/tmp/.ICE-unix/3634</value>
+    <value type="QString" >SESSION_MANAGER=local/argalos:/tmp/.ICE-unix/3643</value>
     <value type="QString" >SHELL=/bin/bash</value>
-    <value type="QString" >SSH_AGENT_PID=3699</value>
-    <value type="QString" >SSH_AUTH_SOCK=/tmp/keyring-Nu9J6M/socket.ssh</value>
+    <value type="QString" >SSH_AGENT_PID=3707</value>
+    <value type="QString" >SSH_AUTH_SOCK=/tmp/keyring-sOgdFn/socket.ssh</value>
     <value type="QString" >USER=thomas</value>
     <value type="QString" >USERNAME=thomas</value>
     <value type="QString" >WINDOWPATH=7</value>
     <value type="QString" >XAUTHORITY=/home/thomas/.Xauthority</value>
     <value type="QString" >XDG_DATA_DIRS=/usr/local/share/:/usr/share/:/usr/share/gdm/</value>
-    <value type="QString" >XDG_SESSION_COOKIE=b25e7f501e4624f030603b7d4812fec9-1248331960.806093-2120992737</value>
+    <value type="QString" >XDG_SESSION_COOKIE=b25e7f501e4624f030603b7d4812fec9-1249564289.933370-643524723</value>
    </valuelist>
    <valuelist key="abstractProcess.arguments" type="QVariantList" >
     <value type="QString" >clean</value>

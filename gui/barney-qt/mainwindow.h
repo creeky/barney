@@ -20,7 +20,6 @@ public:
 
 private:
     Ui::MainWindowClass *ui;
-    QDomDocument xmlfile;
 
 private slots:
     void on_actionBeenden_triggered();
