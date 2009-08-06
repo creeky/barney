@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Barney-Qt</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -32,7 +32,20 @@
        </widget>
       </item>
       <item>
-       <widget class="QListWidget" name="sportartenliste"/>
+       <widget class="QWidget" name="verticalLayout_3" native="true">
+        <layout class="QVBoxLayout" name="verticalLayout_2">
+         <item>
+          <widget class="QLabel" name="label">
+           <property name="text">
+            <string>Sportarten</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QListWidget" name="sportartenliste"/>
+         </item>
+        </layout>
+       </widget>
       </item>
      </layout>
     </item>
