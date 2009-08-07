@@ -43,7 +43,9 @@ void EinstellungenDialog::set_refresh_command(QString s) {
 
 void EinstellungenDialog::on_pushButton_clicked()
 {
-    m_ui->lineEdit->setText(QFileDialog::getExistingDirectory(this, "Verzeichnis wählen", ".", QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks));
+    QString s = QFileDialog::getExistingDirectory(this, "Verzeichnis wählen", ".", QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+    if(s != "")
+        m_ui->lineEdit->setText(s);
 }
 
 void EinstellungenDialog::on_pushButton_2_clicked()

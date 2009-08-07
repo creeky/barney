@@ -47,6 +47,7 @@ private:
     void updateAnbieterliste();
 
 private slots:
+    void on_action_ber_Qt_triggered();
     void on_actionEinstellungen_triggered();
     void on_sportartenliste_itemSelectionChanged();
     void on_actionBeenden_triggered();

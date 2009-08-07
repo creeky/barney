@@ -42,12 +42,6 @@
           <attribute name="verticalHeaderVisible">
            <bool>false</bool>
           </attribute>
-          <attribute name="verticalHeaderVisible">
-           <bool>false</bool>
-          </attribute>
-          <attribute name="horizontalHeaderStretchLastSection">
-           <bool>true</bool>
-          </attribute>
           <column>
            <property name="text">
             <string>Anbieter</string>
@@ -128,18 +122,6 @@
        <attribute name="verticalHeaderVisible">
         <bool>false</bool>
        </attribute>
-       <attribute name="verticalHeaderVisible">
-        <bool>false</bool>
-       </attribute>
-       <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
-        <bool>true</bool>
-       </attribute>
-       <attribute name="horizontalHeaderStretchLastSection">
-        <bool>true</bool>
-       </attribute>
-       <attribute name="horizontalHeaderDefaultSectionSize">
-        <number>110</number>
-       </attribute>
        <column>
         <property name="text">
          <string>Spiel ID</string>
@@ -201,8 +183,15 @@
     </property>
     <addaction name="actionEinstellungen"/>
    </widget>
+   <widget class="QMenu" name="menuHilfe">
+    <property name="title">
+     <string>Hilfe</string>
+    </property>
+    <addaction name="action_ber_Qt"/>
+   </widget>
    <addaction name="menuDatei"/>
    <addaction name="menuBearbeiten"/>
+   <addaction name="menuHilfe"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionBeenden">
@@ -213,6 +202,11 @@
   <action name="actionEinstellungen">
    <property name="text">
     <string>Einstellungen</string>
+   </property>
+  </action>
+  <action name="action_ber_Qt">
+   <property name="text">
+    <string>Über Qt</string>
    </property>
   </action>
  </widget>

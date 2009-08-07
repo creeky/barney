@@ -221,3 +221,8 @@ void MainWindow::on_actionEinstellungen_triggered()
         set_refresh_command(opt_dlg.get_refresh_command());
     }
 }
+
+void MainWindow::on_action_ber_Qt_triggered()
+{
+    QApplication::aboutQt();
+}
