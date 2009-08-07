@@ -38,10 +38,16 @@ public:
 private:
     Ui::MainWindowClass *ui;
     QVector<Sportanbieter*> anbieter;
+    QString refresh_cmd, xml_path;
+
     void optimize_gamelist(QVector<Game>& gamelist);
     void fill_grid(QVector<Game> gamelist);
+    void set_xml_path(QString path);
+    void set_refresh_command(QString command);
+    void updateAnbieterliste();
 
 private slots:
+    void on_actionEinstellungen_triggered();
     void on_sportartenliste_itemSelectionChanged();
     void on_actionBeenden_triggered();
     void on_anbieterCheckBox_clicked();

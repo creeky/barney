@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "einstellungendialog.h"
 
 Sportanbieter::Sportanbieter(QString dateiname) : file(dateiname) {
     file.open(QFile::ReadOnly);
@@ -105,13 +106,16 @@ void MainWindow::fill_grid(QVector<Game> gamelist) {
     }
 }
 
-MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent), ui(new Ui::MainWindowClass)
-{
-    ui->setupUi(this);
+void MainWindow::set_xml_path(QString path) {
+    xml_path = path;
+
+    for(int i = 0; i < anbieter.size(); i++) {
+        delete anbieter.at(i);
+    }
+    anbieter.resize(0);
 
     QStringList xmlfiles, filters;
-    QDir outputdir("../../output");
+    QDir outputdir(path);
     filters << "*.xml";
     outputdir.setNameFilters(filters);
 
@@ -119,7 +123,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     for (int i = 0; i < xmlfiles.size(); ++i)
         anbieter.push_back(new Sportanbieter(outputdir.absolutePath()+QDir::separator()+xmlfiles.at(i)));
+}
 
+void MainWindow::updateAnbieterliste() {
     ui->anbieterliste->setRowCount(anbieter.size());
 
     QStringList sportarten;
@@ -137,7 +143,23 @@ MainWindow::MainWindow(QWidget *parent)
 
     sportarten.removeDuplicates();
 
+    ui->sportartenliste->clear();
     ui->sportartenliste->addItems(sportarten);
+}
+
+void MainWindow::set_refresh_command(QString command) {
+    refresh_cmd = command;
+}
+
+MainWindow::MainWindow(QWidget *parent)
+    : QMainWindow(parent), ui(new Ui::MainWindowClass)
+{
+    ui->setupUi(this);
+
+    set_xml_path("../../output");
+    set_refresh_command("cd ../..; ruby main.rb");
+    updateAnbieterliste();
+
 }
 
 MainWindow::~MainWindow()
@@ -185,4 +207,17 @@ void MainWindow::on_sportartenliste_itemSelectionChanged()
     }
     optimize_gamelist(gameslist);
     fill_grid(gameslist);
+}
+
+void MainWindow::on_actionEinstellungen_triggered()
+{
+    EinstellungenDialog opt_dlg;
+    opt_dlg.set_xml_path(xml_path);
+    opt_dlg.set_refresh_command(refresh_cmd);
+
+    if(opt_dlg.exec() == QDialog::Accepted) {
+        set_xml_path(opt_dlg.get_xml_path());
+        updateAnbieterliste();
+        set_refresh_command(opt_dlg.get_refresh_command());
+    }
 }
