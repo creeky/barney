@@ -45,18 +45,51 @@ QVector<Game> Sportanbieter::get_games(QString sport) {
                 g.anbieter1 = get_name();
                 g.anbieter2 = get_name();
                 g.sport = sport;
+
+                if(g.team1 > g.team2) {
+                    QString temp = g.team1;
+                    g.team1 = g.team2;
+                    g.team2 = temp;
+
+                    float temp2 = g.odd1;
+                    g.odd1 = g.odd2;
+                    g.odd2 = temp2;
+                }
+
                 gamelist.push_back(g);
 
-                s2 = s.nextSiblingElement("game");
+                s2 = s2.nextSiblingElement("game");
             }
         }
-        s = xmlfile.documentElement().nextSiblingElement("sport");
+        s = s.nextSiblingElement("sport");
     }
 
     return gamelist;
 }
 
 void MainWindow::optimize_gamelist(QVector<Game>& gamelist) {
+    QVector<Game> optgames;
+    for(int i = 0; i < gamelist.size(); i++) {
+        bool exists = false;
+        for(int j = 0; j < optgames.size(); j++) {
+            if(optgames.at(j).team1 == gamelist.at(i).team1 && optgames.at(j).team2 == gamelist.at(i).team2) {
+                exists = true;
+                if(gamelist.at(i).odd1 > optgames.at(j).odd1) {
+                    optgames[j].odd1 = gamelist[i].odd1;
+                    optgames[j].anbieter1 = gamelist[i].anbieter1;
+                }
+                if(gamelist.at(i).odd2 > optgames.at(j).odd2) {
+                    optgames[j].odd2 = gamelist[i].odd2;
+                    optgames[j].anbieter2 = gamelist[i].anbieter2;
+                }
+            }
+        }
+
+        if(!exists) {
+            optgames.push_back(gamelist.at(i));
+        }
+    }
+    gamelist = optgames;
 }
 
 void MainWindow::fill_grid(QVector<Game> gamelist) {
@@ -64,10 +97,10 @@ void MainWindow::fill_grid(QVector<Game> gamelist) {
     for(int i = 0; i < gamelist.size(); i++) {
         ui->spielliste->setItem(i, 0, new QTableWidgetItem(gamelist.at(i).id));
         ui->spielliste->setItem(i, 1, new QTableWidgetItem(gamelist.at(i).team1));
-        ui->spielliste->setItem(i, 2, new QTableWidgetItem(gamelist.at(i).odd1));
+        ui->spielliste->setItem(i, 2, new QTableWidgetItem(QString("%1").arg(gamelist.at(i).odd1)));
         ui->spielliste->setItem(i, 3, new QTableWidgetItem(gamelist.at(i).anbieter1));
         ui->spielliste->setItem(i, 4, new QTableWidgetItem(gamelist.at(i).team2));
-        ui->spielliste->setItem(i, 5, new QTableWidgetItem(gamelist.at(i).odd2));
+        ui->spielliste->setItem(i, 5, new QTableWidgetItem(QString("%1").arg(gamelist.at(i).odd2)));
         ui->spielliste->setItem(i, 6, new QTableWidgetItem(gamelist.at(i).anbieter2));
     }
 }
