@@ -44,6 +44,7 @@ private:
 private slots:
     void on_sportartenliste_itemSelectionChanged();
     void on_actionBeenden_triggered();
+    void on_anbieterCheckBox_clicked();
 };
 
 #endif // MAINWINDOW_H

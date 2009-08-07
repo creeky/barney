@@ -15,7 +15,7 @@ QStringList Sportanbieter::get_sports() {
     QDomElement s = xmlfile.documentElement().firstChildElement("sport");
     while(s.attribute("name") != "") {
         ret << s.attribute("name");
-        s = xmlfile.documentElement().nextSiblingElement("sport");
+        s = s.nextSiblingElement("sport");
     }
 
     return ret;
@@ -110,18 +110,28 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    QStringList xmlfiles;
-    xmlfiles << "../../output/pinnacle.xml" << "../../output/expekt.xml" << "../../output/intertops.xml" << "../../output/bwin.xml";
+    QStringList xmlfiles, filters;
+    QDir outputdir("../../output");
+    filters << "*.xml";
+    outputdir.setNameFilters(filters);
+
+    xmlfiles = outputdir.entryList();
 
     for (int i = 0; i < xmlfiles.size(); ++i)
-        anbieter.push_back(new Sportanbieter(xmlfiles.at(i)));
+        anbieter.push_back(new Sportanbieter(outputdir.absolutePath()+QDir::separator()+xmlfiles.at(i)));
 
     ui->anbieterliste->setRowCount(anbieter.size());
 
     QStringList sportarten;
+    QCheckBox *box;
 
     for (int i = 0; i < anbieter.size(); i++) {
+        box = new QCheckBox();
         ui->anbieterliste->setItem(i, 0, new QTableWidgetItem(anbieter.at(i)->get_name()));
+        ui->anbieterliste->setCellWidget(i, 1, box);
+        box->setCheckState(Qt::Checked);
+        connect(box, SIGNAL(clicked()), this, SLOT(on_anbieterCheckBox_clicked()));
+
         sportarten << anbieter.at(i)->get_sports();
     }
 
@@ -138,6 +148,21 @@ MainWindow::~MainWindow()
     }
 }
 
+void MainWindow::on_anbieterCheckBox_clicked() {
+    ui->sportartenliste->clear();
+    QStringList sportarten;
+    QCheckBox *box;
+
+    for (int i = 0; i < anbieter.size(); i++) {
+        box = (QCheckBox*)ui->anbieterliste->cellWidget(i, 1);
+        if(box->checkState() == Qt::Checked)
+            sportarten << anbieter.at(i)->get_sports();
+    }
+
+    sportarten.removeDuplicates();
+    ui->sportartenliste->addItems(sportarten);
+}
+
 void MainWindow::on_actionBeenden_triggered()
 {
     close();
@@ -148,11 +173,14 @@ void MainWindow::on_sportartenliste_itemSelectionChanged()
 {
     QList<QListWidgetItem*> auswahl = ui->sportartenliste->selectedItems();
     QVector<Game> gameslist;
+    QCheckBox *box;
 
     for(int i = 0; i < auswahl.size(); i++) {
         QString sport = auswahl.at(i)->text();
         for(int j = 0; j < anbieter.size(); j++) {
-            gameslist << anbieter.at(j)->get_games(sport);
+            box = (QCheckBox*)ui->anbieterliste->cellWidget(j, 1);
+            if(box->checkState() == Qt::Checked)
+                gameslist << anbieter.at(j)->get_games(sport);
         }
     }
     optimize_gamelist(gameslist);
