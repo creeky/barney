@@ -1,5 +1,6 @@
 #include "einstellungendialog.h"
 #include "ui_einstellungendialog.h"
+#include "quotenerneuerndialog.h"
 #include <QtGui/QFileDialog>
 
 EinstellungenDialog::EinstellungenDialog(QWidget *parent) :
@@ -29,16 +30,20 @@ QString EinstellungenDialog::get_xml_path() {
     return m_ui->lineEdit->text();
 }
 
-QString EinstellungenDialog::get_refresh_command() {
-    return m_ui->lineEdit_2->text();
+QStringList EinstellungenDialog::get_refresh_command() {
+    QStringList ret;
+    ret << m_ui->lineEdit_2->text() << m_ui->lineEdit_3->text() << m_ui->lineEdit_4->text();
+    return ret;
 }
 
 void EinstellungenDialog::set_xml_path(QString s) {
     m_ui->lineEdit->setText(s);
 }
 
-void EinstellungenDialog::set_refresh_command(QString s) {
-    m_ui->lineEdit_2->setText(s);
+void EinstellungenDialog::set_refresh_command(QStringList s) {
+    m_ui->lineEdit_2->setText(s[0]);
+    m_ui->lineEdit_3->setText(s[1]);
+    m_ui->lineEdit_4->setText(s[2]);
 }
 
 void EinstellungenDialog::on_pushButton_clicked()
@@ -50,5 +55,9 @@ void EinstellungenDialog::on_pushButton_clicked()
 
 void EinstellungenDialog::on_pushButton_2_clicked()
 {
-    system(m_ui->lineEdit_2->text().toAscii());
+    QuotenErneuernDialog d;
+    QStringList l;
+    l << m_ui->lineEdit_2->text() << m_ui->lineEdit_3->text() << m_ui->lineEdit_4->text();
+    d.starte_befehl(l);
+    //system(m_ui->lineEdit_2->text().toAscii());
 }

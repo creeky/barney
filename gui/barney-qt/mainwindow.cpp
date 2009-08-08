@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "einstellungendialog.h"
+#include "quotenerneuerndialog.h"
 
 Sportanbieter::Sportanbieter(QString dateiname) : file(dateiname) {
     file.open(QFile::ReadOnly);
@@ -147,7 +148,7 @@ void MainWindow::updateAnbieterliste() {
     ui->sportartenliste->addItems(sportarten);
 }
 
-void MainWindow::set_refresh_command(QString command) {
+void MainWindow::set_refresh_command(QStringList command) {
     refresh_cmd = command;
 }
 
@@ -157,7 +158,10 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     set_xml_path("../../output");
-    set_refresh_command("cd ../..; ruby main.rb");
+
+    QStringList s;
+    s << "./main.rb" << "../.." << "";
+    set_refresh_command(s);
     updateAnbieterliste();
 
 }
@@ -225,4 +229,11 @@ void MainWindow::on_actionEinstellungen_triggered()
 void MainWindow::on_action_ber_Qt_triggered()
 {
     QApplication::aboutQt();
+}
+
+void MainWindow::on_actionErneuern_triggered()
+{
+    //system(refresh_cmd.toAscii());
+    QuotenErneuernDialog d;
+    d.starte_befehl(refresh_cmd);
 }

@@ -64,6 +64,7 @@ class BWinScraper
 
 		@sports.each do |name|
 			puts("Hole #{name}-Daten von BWin")
+			$stdout.flush
 			text = ""
 			get_request(@sporturls[name], headers, true) { |string|
 				text = text + string
@@ -76,6 +77,7 @@ file.close
 			@games[name] = text.scan(@reg_expr[name])
 			if(text == "")
 				puts("Es konnten keine Daten gefunden werden")
+				$stdout.flush
 			end
 		end
 	end
@@ -107,6 +109,7 @@ file.close
 			file.close()
 		}
 		puts("Fertig")
+		$stdout.flush
 	end
 end
 

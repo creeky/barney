@@ -6,8 +6,11 @@ TARGET = barney-qt
 TEMPLATE = app
 SOURCES += main.cpp \
     mainwindow.cpp \
-    einstellungendialog.cpp
+    einstellungendialog.cpp \
+    quotenerneuerndialog.cpp
 HEADERS += mainwindow.h \
-    einstellungendialog.h
+    einstellungendialog.h \
+    quotenerneuerndialog.h
 FORMS += mainwindow.ui \
-    einstellungendialog.ui
+    einstellungendialog.ui \
+    quotenerneuerndialog.ui

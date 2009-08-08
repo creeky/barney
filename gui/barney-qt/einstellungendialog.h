@@ -16,8 +16,8 @@ public:
 
     QString get_xml_path();
     void set_xml_path(QString s);
-    QString get_refresh_command();
-    void set_refresh_command(QString s);
+    QStringList get_refresh_command();
+    void set_refresh_command(QStringList s);
 
 protected:
     virtual void changeEvent(QEvent *e);

@@ -175,6 +175,7 @@
     <property name="title">
      <string>Datei</string>
     </property>
+    <addaction name="actionErneuern"/>
     <addaction name="actionBeenden"/>
    </widget>
    <widget class="QMenu" name="menuBearbeiten">
@@ -207,6 +208,11 @@
   <action name="action_ber_Qt">
    <property name="text">
     <string>Über Qt</string>
+   </property>
+  </action>
+  <action name="actionErneuern">
+   <property name="text">
+    <string>Daten erneuern</string>
    </property>
   </action>
  </widget>

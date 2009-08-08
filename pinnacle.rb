@@ -40,6 +40,7 @@ class PinnacleScraper
 
 		@sports.each do |name|
 			puts("Hole #{name}-Daten von Pinnclesports")
+			$stdout.flush
 			text = ""
 			post_request(@sporturls[name], "", headers) { |string|
 				text = text + string
@@ -48,6 +49,7 @@ class PinnacleScraper
 			@games[name] = text.scan(@reg_expr[name])
 			if(text == "")
 				puts("Es konnten keine Daten gefunden werden")
+				$stdout.flush
 			end
 		end
 	end
@@ -79,6 +81,7 @@ class PinnacleScraper
 			file.close()
 		}
 		puts("Fertig")
+		$stdout.flush
 	end
 end
 

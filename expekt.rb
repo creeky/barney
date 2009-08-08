@@ -66,6 +66,7 @@ class ExpektScraper
 
 		@sports.each do |name|
 			puts("Hole #{name}-Daten von Expekt")
+			$stdout.flush
 			text = ""
 			get_request(@sporturls[name], headers) { |string|
 				text = text + string
@@ -75,6 +76,7 @@ class ExpektScraper
 			@games[name] = text.scan(@reg_expr[name])
 			if(text == "")
 				puts("Es konnten keine Daten gefunden werden")
+				$stdout.flush
 			end
 		end
 	end
@@ -106,6 +108,7 @@ class ExpektScraper
 			file.close()
 		}
 		puts("Fertig")
+		$stdout.flush
 	end
 end
 

@@ -59,6 +59,7 @@ class IntertopsScraper
 	def get_odds()
 		@sports.each do |sport|
 			puts("Hole #{sport}-Daten von Intertops")
+			$stdout.flush
 
 			@games[sport] = Array.new()
 			get_request("http://pda.intertops.com/German/selectbet.asp?" + @sportqueries[sport]) { |strings|
@@ -77,6 +78,7 @@ class IntertopsScraper
 			}
 			if(@games[sport] == {})
 				puts("Es konnten keine Daten gefunden werden")
+				$stdout.flush
 			end
 		end
 	end
@@ -107,6 +109,7 @@ class IntertopsScraper
 			file.close()
 		}
 		puts("Fertig")
+		$stdout.flush
 	end
 end
 
