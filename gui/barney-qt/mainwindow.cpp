@@ -104,6 +104,7 @@ void MainWindow::fill_grid(QVector<Game> gamelist) {
         ui->spielliste->setItem(i, 4, new QTableWidgetItem(gamelist.at(i).team2));
         ui->spielliste->setItem(i, 5, new QTableWidgetItem(QString("%1").arg(gamelist.at(i).odd2)));
         ui->spielliste->setItem(i, 6, new QTableWidgetItem(gamelist.at(i).anbieter2));
+        ui->spielliste->setItem(i, 7, new QTableWidgetItem(QString("%1").arg(1.0/gamelist.at(i).odd1 + 1.0/gamelist.at(i).odd2)));
     }
 }
 
@@ -221,9 +222,11 @@ void MainWindow::on_actionEinstellungen_triggered()
 
     if(opt_dlg.exec() == QDialog::Accepted) {
         set_xml_path(opt_dlg.get_xml_path());
-        updateAnbieterliste();
         set_refresh_command(opt_dlg.get_refresh_command());
+    } else {
+        set_xml_path(xml_path);
     }
+    updateAnbieterliste();
 }
 
 void MainWindow::on_action_ber_Qt_triggered()
@@ -236,4 +239,6 @@ void MainWindow::on_actionErneuern_triggered()
     //system(refresh_cmd.toAscii());
     QuotenErneuernDialog d;
     d.starte_befehl(refresh_cmd);
+    set_xml_path(xml_path);
+    updateAnbieterliste();
 }

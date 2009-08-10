@@ -108,7 +108,7 @@
         <number>0</number>
        </property>
        <property name="columnCount">
-        <number>7</number>
+        <number>8</number>
        </property>
        <attribute name="horizontalHeaderDefaultSectionSize">
         <number>110</number>
@@ -155,6 +155,11 @@
        <column>
         <property name="text">
          <string>Anbieter 2</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>1/odd1+1/odd2</string>
         </property>
        </column>
       </widget>
