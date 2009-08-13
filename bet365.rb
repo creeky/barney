@@ -1,114 +1,146 @@
-#require 'script/_testing/helpers/urltools.rb'
+#!/usr/bin/ruby
+# Script zum Scrapen der Wetten von bet365.com
+
 require 'helpers/urltools.rb'
-#require 'script/_testing/helpers/dbtools.rb'
-require 'helpers/dbtools.rb'
-#require 'script/_testing/helpers/analysequery.rb'
 require 'helpers/analysequery.rb'
-#require 'script/_testing/helpers/gameparsers.rb'
-require 'helpers/gameparsers.rb'
 
-require 'pp'
+class Bet365Scraper
+	def initialize(sports)
+		@sports = sports
+		@sporturls = {
+# Meiner Meinung nach sollten die Sportarten nach Ligen unterteilt werden
+			'Baseball/MLB' => 'http://www.bet365.com/home/mainpage.asp'
+		}
 
-$betsports = {
-  1 => "Soccer",
-  13 => "Tennis",
-  16 => "Baseball"
-}
+# Sportart: hunderter, Ligen: fortlaufende Nummer
+# Die IDs kann man vielleicht besser in ein helper-script auslagern...
+		@sportids = {
+			'Baseball/MLB' => 101,
+			'Basketball/NBA' => 201,
+			'Football/NFL' => 301,
 
-$getids = [1, 13, 16]
-$checkout = []
+			'Baseball' => 100
+		}
+		@reg_expr = {
+			'Baseball/MLB' => /<tr class="rh1">.+?<td [^>]+>.+?<\/td>.+?<td [^>]+>.+?<\/td>.+?<td [^>]+>([^&]+)&nbsp;<br>.+?<\/td>.+?<td [^>]+>.+?<\/td>.+?<td [^>]+>(\d{1,2}.\d{2})<\/td>.+?<td [^>]+>.+?<\/td>.+?<td [^>]+>.+?<\/td>.+?<td [^>]+>.+?<\/td>.+?<td [^>]+>.+?<\/td>.+?<td [^>]+>.+?<\/td><\/tr>.+?<tr class="c1 rh1">.+?<td [^>]+>.+?<\/td>.+?<td [^>]+>([^<]+)<br>.+?<\/td>.+?<td [^>]+>(\d{1,2}.\d{2})<\/td>/m
+		}
+		@games = {}
+		@teams = {
+#			"Arizona Diamondbacks"=>"Arizona D-Backs",
+			"ATL Braves"=>"Atlanta Braves",
+#			"Baltimore Orioles"=>"Baltimore Orioles",
+			"BOS Red Sox"=>"Boston Red Sox",
+			"CHI Cubs"=>"Chicago Cubs",
+			"CIN Reds"=>"Cincinnati Reds",
+#			"Cleveland Indians"=>"Cleveland Indians",
+			"COL Rockies"=>"Colorado Rockies",
+			"CHI White Sox"=>"Chicago White Sox",
+			"DET Tigers"=>"Detroit Tigers",
+			"FLA Marlins"=>"Florida Marlins",
+			"HOU Astros"=>"Houston Astros",
+#			"Kansas City Royals"=>"Kansas City Royals",
+			"LA Angels"=>"LAA Angels",
+			"LA Dodgers"=>"Los Angeles Dodgers",
+			"MIL Brewers"=>"Milwaukee Brewers",
+			"MIN Twins"=>"Minnesota Twins",
+			"NY Mets"=>"New York Mets",
+			"NY Yankees"=>"New York Yankees",
+#			"Oakland Athletics"=>"Oakland Athletics",
+			"PHI Phillies"=>"Philadelphia Phillies",
+			"PIT Pirates"=>"Pittsburgh Pirates",
+			"SD Padres"=>"San Diego Padres",
+			"SEA Mariners"=>"Seattle Mariners",
+			"SF Giants"=>"San Francisco Giants",
+			"STL Cardinals"=>"St Louis Cardinals",
+			"TB Rays"=>"Tampa Bay Rays",
+			"TEX Rangers"=>"Texas Rangers",
+#			"Toronto Bluejays"=>"Toronto Blue Jays",
+			"WAS Nationals"=>"Washington Nationals"
+		}
+	end
 
-$bookmaker = "bet365"
+	def get_odds
 
-$postq = {
-  "txtCurrentPageID" => "1020",
-  "txtClassID" => "%d",
-  "txtNavigationPB" => {},
-  "txtSiteNavigationPB" => {},
-  "txtSiteNavigationCachePB" => {}
-}
+		  headers = {
+				"Cookie" => "aps03=lng=5&cf=N"
+		  }
 
-$queryformat = reform_query($postq)
-reg = /onclick="javaScript:gPC2\((\d+),'','(\d+)','(\d+)','','(\d+)','(\d+)','','','',(\d+)\);return false;">([^<]+)<\/a>/
+			$postq = {
+ 				"txtNavigationPB" => {},
+	 			"txtSiteNavigationPB" => {
+ 				  "dummy" => "0"
+				 },
+ 				"txtSiteNavigationCachePB" => {},
+				"txtClassID" => "16",
+				"txtNPID" => "100000",
+				"txtSiteNavigationPB" => {
+					"c1id" => "20153629",
+					"c1idtable" => "48",
+					"c2id" => "1",
+					"c2idtable" => "36"
+				}			
+			}
 
-$getids.each {
-  |sportid|
-  out = $queryformat % sportid
+		@sports.each do |name|
+			puts("Hole #{name}-Daten von Bet365")
+			$stdout.flush
+			text = ""
 
-  headers = {
-    "Cookie" => "aps03=lng=5&cf=N"
-  }
+			out = reform_query($postq)
+			post_request(@sporturls[name], out, headers) { |string|
+				text = text + string
+			}
 
-  post_request('http://81.94.208.20/home/mainpage.asp', out, headers) {
-    |text|
-    #File.open(File.dirname(__FILE__) + "/dump#{sportid}.html", "w") { |f| f.write(text); f.close }
+#		File.open("junk.html", "w") { |file|
+#		file.write(text)
+#		file.close }
 
-    text.scan(reg).each {
-      |betmode|
-      case sportid
-	# FÜR WAS STEHEN DIE EINZELNEN BETMODES??????????
-      when 13:
-        $checkout.push betmode if ((betmode[2] == "50") && (betmode[4] == "1"))
-      when 1:
-        $checkout.push betmode if (betmode[2] == "13")
-      when 16:
-	$checkout.push betmode if (betmode[3] == "1")
-      end
-    }
-  }
-}
+#game: team1, odd1, team2, odd2
+			@games[name] = text.scan(@reg_expr[name])
+			if(text == "")
+				puts("Es konnten keine Daten gefunden werden")
+				$stdout.flush
+			end
+		end
+	end
 
-$postq = {
-  "txtNavigationPB" => {},
-  "txtSiteNavigationPB" => {
-    "dummy" => "0"
-  },
-  "txtSiteNavigationCachePB" => {}
-}
+	def write_to_file(filename="output/bet365.xml")
+		puts("Schreibe Daten in #{filename}")
+		File.open(filename, "w") { |file|
+			file.puts("<bookmaker name=\"Bet365\">")
+			@sports.each do |sport|
+				file.puts("<sport name=\"#{sport}\" id=\"#{@sportids[sport]}\">")
+				@games[sport].each do |game|
+# Wie soll sich die GameID berechnen?
+					file.puts("<game id=\"1\">")
 
-$matches = []
+# Das Datum sollte umgerechnet werden (zB in yyyymmddhh)
+					file.puts("<date>", "N/A", "</date>")
+					file.puts("<time>", "N/A", "</time>")
 
-$checkout.each {
-  |league|
-  $postq["txtClassID"] = league[5]
-  $postq["txtNPID"] = league[0]
-  $postq["txtSiteNavigationPB"]["c1id"] = league[1]
-  $postq["txtSiteNavigationPB"]["c1idtable"] = league[2]
-  $postq["txtSiteNavigationPB"]["c2idtable"] = league[4]
-  $postq["txtSiteNavigationPB"]["c2id"] = league[3]
+					file.puts("<team1 id=\"N/A\">", @teams[game[0].strip], "</team1>")
+					file.puts("<odd1>", game[1], "</odd1>")
+					file.puts("<team2 id=\"N/A\">", @teams[game[2].strip], "</team2>")
+					file.puts("<odd2>", game[3], "</odd2>")
 
-  out = reform_query($postq)
+					file.puts("</game>")
+				end
+				file.puts("</sport>")
+			end
+			file.puts("</bookmaker>")
+			file.close()
+		}
+		puts("Fertig")
+		$stdout.flush
+	end
+end
 
-  headers = {"Cookie" => "aps03=lng=5&cf=N"}
+#nur wenn das Script direkt gestartet wird, wird dieser Teil ausgeführt
+if __FILE__ == $0
 
-  post_request('http://81.94.208.20/home/mainpage.asp', out, headers) {
-    |text|
-   File.open("dump/dump#{league[0]}_#{league[1]}_#{league[2]}_#{league[3]}_#{league[4]}_#{league[5]}.html", "w") { |f| f.write(text+league[6]); f.close }
-    parsed = parse_league(text, league[5])
-    parsed.each {
-      |item|
-      item["data"].each {
-        |data|
-        case league[5]
-        when 13:
-          match = [league[5], league[6], data[0], data[1], data[2], data[3], nil, data[4]]
-        else
-          match = [league[5], league[6], data[0], data[1], data[2], data[3], data[4], data[5]]
-        end
-        $matches << match.map { |x| (x.is_a?(String) ? CGI::unescapeallHTML(x) : x) }
-      }
-    }
-  }
-}
+sports = ['Baseball/MLB']
+ps = Bet365Scraper.new(sports)
+ps.get_odds()
+ps.write_to_file()
 
-File.open("output.txt", "w") { 
-|f| 
-$matches.each { |match|
-	f.puts match
-}
-f.close }
-
-$matches.each { |match|
-  $sport = $betsports[match.shift.to_i]
-  #quote = register_quote(match)
-}
+end
