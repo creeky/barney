@@ -34,7 +34,7 @@ if(outputdir == "")
 	outputdir = "output"
 end
 if(anbieter.empty?())
-	anbieter = ["pinnacle", "intertops", "expekt", "bwin", "sportingbet"]
+	anbieter = ["pinnacle", "intertops", "expekt", "bwin", "sportingbet", "bet365"]
 end
 
 # pinnacle:
@@ -77,10 +77,22 @@ if(anbieter.include?("bwin"))
 	s.write_to_file( outputdir + "/bwin.xml")
 end
 
+# sportingbet:
+
 if(anbieter.include?("sportingbet"))
 	require 'sportingbet.rb'
 
 	s = SportingbetScraper.new(sports)
 	s.get_odds()
 	s.write_to_file( outputdir + "/sportingbet.xml")
+end
+
+# bet365:
+
+if(anbieter.include?("bet365"))
+	require 'bet365.rb'
+
+	s = Bet365Scraper.new(sports)
+	s.get_odds()
+	s.write_to_file( outputdir + "/bet365.xml")
 end
