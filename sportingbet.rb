@@ -50,10 +50,10 @@ class SportingbetScraper
 			"San Diego Padres"=>"San Diego Padres",
 			"Seattle Mariners"=>"Seattle Mariners",
 			"San Francisco Giants"=>"San Francisco Giants",
-			"St Louis Cardinals"=>"St Louis Cardinals",
+			"St. Louis Cardinals"=>"St Louis Cardinals",
 			"Tampa Bay Rays"=>"Tampa Bay Rays",
 			"Texas Rangers"=>"Texas Rangers",
-			"Toronto Bluejays"=>"Toronto Blue Jays",
+			"Toronto Blue Jays"=>"Toronto Blue Jays",
 			"Washington Nationals"=>"Washington Nationals"
 		}
 	end
@@ -93,9 +93,9 @@ class SportingbetScraper
 					file.puts("<date>", "N/A", "</date>")
 					file.puts("<time>", "N/A", "</time>")
 
-					file.puts("<team1 id=\"N/A\">", game[0].strip, "</team1>")
+					file.puts("<team1 id=\"N/A\">", @teams[game[0].strip], "</team1>")
 					file.puts("<odd1>", game[2], "</odd1>")
-					file.puts("<team2 id=\"N/A\">", game[1].strip, "</team2>")
+					file.puts("<team2 id=\"N/A\">", @teams[game[1].strip], "</team2>")
 					file.puts("<odd2>", game[3], "</odd2>")
 
 					file.puts("</game>")
