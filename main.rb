@@ -34,7 +34,7 @@ if(outputdir == "")
 	outputdir = "output"
 end
 if(anbieter.empty?())
-	anbieter = ["pinnacle", "intertops", "expekt", "bwin", "sportingbet", "bet365"]
+	anbieter = ["pinnacle", "intertops", "expekt", "bwin", "sportingbet"]
 end
 
 # pinnacle:
