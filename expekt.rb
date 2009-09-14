@@ -8,7 +8,8 @@ class ExpektScraper
 		@sports = sports
 		@sporturls = {
 # Meiner Meinung nach sollten die Sportarten nach Ligen unterteilt werden
-			'Baseball/MLB' => 'http://www.expekt.com/odds/eventsodds.jsp?betcategoryId=BSBMENUSAUSAFST&range=1000000&sortby=2'
+			'Baseball/MLB' => 'http://www.expekt.com/odds/eventsodds.jsp?betcategoryId=BSBMENUSAUSAFST&range=1000000&sortby=2',
+			'Football/NFL' => 'http://www.expekt.com/odds/eventsodds.jsp?range=1000000&sortby=2&active=betting&betcategoryId=AMFMENUSAUSANFL'
 		}
 
 # Sportart: hunderter, Ligen: fortlaufende Nummer
@@ -21,10 +22,12 @@ class ExpektScraper
 			'Baseball' => 100
 		}
 		@reg_expr = {
-			'Baseball/MLB' => /<tr class="oddsRow[1,2]">.+?<td align="center"> (\d{1,2}:\d{2}) <\/td>.+?<td align="center">([^-]+)-([^<]+).+?<td align="center">.+?<td align="center">.+?(\d{1,2}.\d{2}).+?<td align="center">.+?<td align="center">.+?(\d{1,2}.\d{2})/m
+			'Baseball/MLB' => /<tr class="oddsRow[1,2]">.+?<td align="center"> (\d{1,2}:\d{2}) <\/td>.+?<td align="center">([^-]+)-([^<]+).+?<td align="center">.+?<td align="center">.+?(\d{1,2}.\d{2}).+?<td align="center">.+?<td align="center">.+?(\d{1,2}.\d{2})/m,
+			'Football/NFL' => /<tr class="oddsRow[1,2]">.+?<td align="center"> (\d{1,2}:\d{2}) <\/td>.+?<td align="center">([^-]+)-([^<]+).+?<td align="center">.+?<td align="center">.+?(\d{1,2}.\d{2}).+?<td align="center">.+?<td align="center">.+?(\d{1,2}.\d{2})/m
 		}
 		@games = {}
 		@teams = {
+			#Baseball/MLB
 			"Arizona Diamondbacks"=>"Arizona D-Backs",
 			"Atlanta Braves"=>"Atlanta Braves",
 			"Baltimore Orioles"=>"Baltimore Orioles",
@@ -54,7 +57,13 @@ class ExpektScraper
 			"Tampa Bay Rays"=>"Tampa Bay Rays",
 			"Texas Rangers"=>"Texas Rangers",
 			"Toronto Bluejays"=>"Toronto Blue Jays",
-			"Washington Nationals"=>"Washington Nationals"
+			"Washington Nationals"=>"Washington Nationals",
+
+			#Football/NFL
+			"Buffalo Bills"=>"Buffalo Bills",
+			"New England Patriots"=>"New England Patriots",
+			"San Diego Chargers"=>"San Diego Chargers",
+			"Oakland Raiders"=>"Oakland Raiders"
 		}
 	end
 
@@ -115,7 +124,7 @@ end
 #nur wenn das Script direkt gestartet wird, wird dieser Teil ausgeführt
 if __FILE__ == $0
 
-sports = ['Baseball/MLB']
+sports = ['Baseball/MLB', 'Football/NFL']
 ps = ExpektScraper.new(sports)
 ps.get_odds()
 ps.write_to_file()

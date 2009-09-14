@@ -8,7 +8,8 @@ class BWinScraper
 		@sports = sports
 		@sporturls = {
 # Meiner Meinung nach sollten die Sportarten nach Ligen unterteilt werden
-			'Baseball/MLB' => 'https://www.bwin.com/de/betviewiframe.aspx?leagueIDs=(1)Cl3Cl2&ShowDays=2147483647'
+			'Baseball/MLB' => 'https://www.bwin.com/de/betviewiframe.aspx?leagueIDs=(1)Cl3Cl2&ShowDays=2147483647',
+			'Football/NFL' => 'https://www.bwin.com/de/betViewIframe.aspx?SportID=11&bv=bb'
 		}
 
 # Sportart: hunderter, Ligen: fortlaufende Nummer
@@ -21,10 +22,12 @@ class BWinScraper
 			'Baseball' => 100
 		}
 		@reg_expr = {
-			'Baseball/MLB' => /<table class='item' border='0'><tr><td class='label'>(.+?)<\/td><td class='odd'>(\d{1,2}.\d{2})<\/td><\/tr><\/table>.+?<table class='item' border='0'><tr><td class='label'>(.+?)<\/td><td class='odd'>(\d{1,2}.\d{2})<\/td><\/tr><\/table>/m
+			'Baseball/MLB' => /<table class='item' border='0'><tr><td class='label'>(.+?)<\/td><td class='odd'>(\d{1,2}.\d{2})<\/td><\/tr><\/table>.+?<table class='item' border='0'><tr><td class='label'>(.+?)<\/td><td class='odd'>(\d{1,2}.\d{2})<\/td><\/tr><\/table>/m,
+			'Football/NFL' => /<table class='item' border='0'><tr><td class='label'>(.+?)<\/td><td class='odd'>(\d{1,2}.\d{2})<\/td><\/tr><\/table>.+?<table class='item' border='0'><tr><td class='label'>(.+?)<\/td><td class='odd'>(\d{1,2}.\d{2})<\/td><\/tr><\/table>/m
 		}
 		@games = {}
 		@teams = {
+			#Baseball/MLB
 			"Arizona Diamondbacks"=>"Arizona D-Backs",
 			"Atlanta Braves"=>"Atlanta Braves",
 			"Baltimore Orioles"=>"Baltimore Orioles",
@@ -54,7 +57,13 @@ class BWinScraper
 			"Tampa Bay Rays"=>"Tampa Bay Rays",
 			"Texas Rangers"=>"Texas Rangers",
 			"Toronto Blue Jays"=>"Toronto Blue Jays",
-			"Washington Nationals"=>"Washington Nationals"
+			"Washington Nationals"=>"Washington Nationals",
+
+			#Football/NFL
+			"Buffalo Bills"=>"Buffalo Bills",
+			"New England Patriots"=>"New England Patriots",
+			"San Diego Chargers"=>"San Diego Chargers",
+			"Oakland Raiders"=>"Oakland Raiders"
 		}
 	end
 
@@ -116,7 +125,7 @@ end
 #nur wenn das Script direkt gestartet wird, wird dieser Teil ausgeführt
 if __FILE__ == $0
 
-sports = ['Baseball/MLB']
+sports = ['Baseball/MLB', 'Football/NFL']
 ps = BWinScraper.new(sports)
 ps.get_odds()
 ps.write_to_file()
