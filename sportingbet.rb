@@ -8,7 +8,8 @@ class SportingbetScraper
 		@sports = sports
 		@sporturls = {
 # Meiner Meinung nach sollten die Sportarten nach Ligen unterteilt werden
-			'Baseball/MLB' => 'http://de.sportingbet.com/Baseball;Baseball-Spiele;-Aktuelle-Spiele-/ECMARKET/9/77263/9?'
+			'Baseball/MLB' => 'http://de.sportingbet.com/Baseball;Baseball-Spiele;-Aktuelle-Spiele-/ECMARKET/9/77263/9?',
+			'Football/NFL' => 'http://de.sportingbet.com/Am--Football;NFL---Woche-1---Spiele;-Aktuelle-Spiele-/ECMARKET/10/159426/10?'
 		}
 
 # Sportart: hunderter, Ligen: fortlaufende Nummer
@@ -21,10 +22,12 @@ class SportingbetScraper
 			'Baseball' => 100
 		}
 		@reg_expr = {
-			'Baseball/MLB' => /<tr .+? class="normalRow">.+?<\/tr>.+?<tr [^>]+>.+?<td [^>]+>.+?<span [^>]+>(.+?)<\/span>.+?<span [^>]+>(.+?)<\/span>.+?<\/td>.+?<td [^>]+>.+?<\/td>.+?<td [^>]+>.+?<\/td>.+?<td [^>]+>.+?<a [^>]+>(\d{1,2}.\d{1,3}).+?<a [^>]+>(\d{1,2}.\d{1,3})/m
+			'Baseball/MLB' => /<tr [^>]+>[^<]+<td [^>]+>[^<]+<span [^>]+>([^<]+)<\/span>[^<]+<span [^>]+>([^<]+)<\/span>[^<]+<\/td>[^<]+<td [^>]+>.+?<\/td>[^<]+<td [^>]+>.+?<\/td>[^<]+<td [^>]+>[^<]+<a [^>]+>(\d{1,3}.\d{2,3}).+?<a [^>]+>(\d{1,3}.\d{2,3})/m,
+			'Football/NFL' => /<tr [^>]+>[^<]+<td [^>]+>[^<]+<span [^>]+>([^<]+)<\/span>[^<]+<span [^>]+>([^<]+)<\/span>[^<]+<\/td>[^<]+<td [^>]+>.+?<\/td>[^<]+<td [^>]+>.+?<\/td>[^<]+<td [^>]+>[^<]+<a [^>]+>(\d{1,3}.\d{2,3}).+?<a [^>]+>(\d{1,3}.\d{2,3})/m
 		}
 		@games = {}
 		@teams = {
+			#Baseball/MLB
 			"Arizona Diamondbacks"=>"Arizona D-Backs",
 			"Atlanta Braves"=>"Atlanta Braves",
 			"Baltimore Orioles"=>"Baltimore Orioles",
@@ -50,11 +53,17 @@ class SportingbetScraper
 			"San Diego Padres"=>"San Diego Padres",
 			"Seattle Mariners"=>"Seattle Mariners",
 			"San Francisco Giants"=>"San Francisco Giants",
-			"St Louis Cardinals"=>"St Louis Cardinals",
+			"St. Louis Cardinals"=>"St Louis Cardinals",
 			"Tampa Bay Rays"=>"Tampa Bay Rays",
 			"Texas Rangers"=>"Texas Rangers",
-			"Toronto Bluejays"=>"Toronto Blue Jays",
-			"Washington Nationals"=>"Washington Nationals"
+			"Toronto Blue Jays"=>"Toronto Blue Jays",
+			"Washington Nationals"=>"Washington Nationals",
+
+			#Football/NFL
+			"Buffalo"=>"Buffalo Bills",
+			"New England"=>"New England Patriots",
+			"San Diego"=>"San Diego Chargers",
+			"Oakland"=>"Oakland Raiders"
 		}
 	end
 
@@ -93,9 +102,9 @@ class SportingbetScraper
 					file.puts("<date>", "N/A", "</date>")
 					file.puts("<time>", "N/A", "</time>")
 
-					file.puts("<team1 id=\"N/A\">", game[0].strip, "</team1>")
+					file.puts("<team1 id=\"N/A\">", @teams[game[0].strip], "</team1>")
 					file.puts("<odd1>", game[2], "</odd1>")
-					file.puts("<team2 id=\"N/A\">", game[1].strip, "</team2>")
+					file.puts("<team2 id=\"N/A\">", @teams[game[1].strip], "</team2>")
 					file.puts("<odd2>", game[3], "</odd2>")
 
 					file.puts("</game>")
@@ -113,7 +122,7 @@ end
 #nur wenn das Script direkt gestartet wird, wird dieser Teil ausgeführt
 if __FILE__ == $0
 
-sports = ['Baseball/MLB']
+sports = ['Baseball/MLB', 'Football/NFL']
 ps = SportingbetScraper.new(sports)
 ps.get_odds()
 ps.write_to_file()
