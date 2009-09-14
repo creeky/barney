@@ -26,6 +26,7 @@ class PinnacleScraper
 		}
 		@reg_expr = {
 			'Baseball/MLB' => /<td>(.{5,10})<\/td><td>(\d{3,4})<\/td><td>(.{5,25})<BR.*<\/td><td>&nbsp;&nbsp;&nbsp;(.{5,6})<\/td><td>OVER.*<\/td>\r\n..*\r\n..<td>(.{5,10})<\/td><td>(\d{3,4})<\/td><td>(.{5,25})<BR.*<\/td><td>&nbsp;&nbsp;&nbsp;(.{5,6})<\/td>/,
+			'Football/NFL' => /<td>(.{5,10})<\/td><td>(\d{3,4})<\/td><td>([^<]+)<\/td><td>[^<]+<\/td><td>.+?(\d{1,2}.\d{3})<\/td><td>[^<]+<\/td><td [^>]+><\/td>[^<]+<\/tr><tr [^>]+>[^<]+<td>(.{5,10})<\/td><td>(\d{3,4})<\/td><td>([^<]+)<\/td><td>[^<]+<\/td><td>.+?(\d{1,2}.\d{3})<\/td><td>[^<]+<\/td>[^<]+<\/tr>/m,
 # Brauche ich auch solches Kompatibilitätszeug?
 			'Baseball' => /<td>(.{5,10})<\/td><td>(\d{3,4})<\/td><td>(.{5,25})<BR.*<\/td><td>&nbsp;&nbsp;&nbsp;(.{5,6})<\/td><td>OVER.*<\/td>\r\n..*\r\n..<td>(.{5,10})<\/td><td>(\d{3,4})<\/td><td>(.{5,25})<BR.*<\/td><td>&nbsp;&nbsp;&nbsp;(.{5,6})<\/td>/
 		}
@@ -39,7 +40,7 @@ class PinnacleScraper
   		}
 
 		@sports.each do |name|
-			puts("Hole #{name}-Daten von Pinnclesports")
+			puts("Hole #{name}-Daten von Pinnaclesports")
 			$stdout.flush
 			text = ""
 			post_request(@sporturls[name], "", headers) { |string|
@@ -88,7 +89,7 @@ end
 #nur wenn das Script direkt gestartet wird, wird dieser Teil ausgeführt
 if __FILE__ == $0
 
-sports = ['Baseball/MLB']
+sports = ['Baseball/MLB', 'Football/NFL']
 ps = PinnacleScraper.new(sports)
 ps.get_odds()
 ps.write_to_file()
