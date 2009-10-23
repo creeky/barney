@@ -8,7 +8,8 @@ class IntertopsScraper
 	def initialize(sports)
 		@sports = sports
 		@sportqueries = {
-			'Baseball/MLB' => "os=pRbtgge&sprtyp=BB&scrncd=SM&compno=1524"
+			'Baseball/MLB' => "os=pRbtgge&sprtyp=BB&scrncd=SM&compno=1524",
+			'Football/NFL' => "id=&os=pRbtgge&sprtyp=AF&scrncd=SM&compno=1018"
 		}
 		@sportids = {
 			'Baseball/MLB' => 101,
@@ -16,10 +17,12 @@ class IntertopsScraper
 			'Football/NFL' => 301,
 		}
 		@reg_expr_uebersicht = {
-			'Baseball/MLB' => /<A href="getsmbettype\.asp\?id=&os=pRbtgge&sprtyp=BB&scrncd=SM&compno=1524&machno=1524&betno=(\d{6})">/
+			'Baseball/MLB' => /<A href="getsmbettype\.asp\?id=&os=pRbtgge&sprtyp=BB&scrncd=SM&compno=1524&machno=1524&betno=(\d{6})">/,
+			'Football/NFL' => /<A href="getsmbettype\.asp\?id=&os=pRbtgge&sprtyp=AF&scrncd=SM&compno=1018&machno=1018&betno=(\d{6})">/
 		}
 		@reg_expr_games = {
-			'Baseball/MLB' => /(.{3}) \(.{3,15}\)   \((.{3,8})\)<\/A><br>\s*<A href="getsmbet\.asp\?id=&os=pRbtgge&sprtyp=BB&scrncd=SM&compno=1524&bettyp=SM&betno=......&optino=SM.">(.{3}) \(.{3,15}\)   \((.{3,8})\)<\/A><br>/
+			'Baseball/MLB' => /(.{3}) \(.{3,15}\)   \((.{3,8})\)<\/A><br>\s*<A href="getsmbet\.asp\?id=&os=pRbtgge&sprtyp=BB&scrncd=SM&compno=1524&bettyp=SM&betno=......&optino=SM.">(.{3}) \(.{3,15}\)   \((.{3,8})\)<\/A><br>/,
+			'Football/NFL' => /<A [^>]+>([^(<]+)\((\d{1,3}.\d{1,5})\)<\/A><br>.+?<A [^>]+>([^(<]+)\((\d{1,3}.\d{1,5})\)<\/A><br>/m
 		}
 		@games = Hash.new()
 		@teams = {
@@ -62,7 +65,7 @@ class IntertopsScraper
 			$stdout.flush
 
 			@games[sport] = Array.new()
-			get_request("http://pda.intertops.com/German/selectbet.asp?" + @sportqueries[sport]) { |strings|
+			get_request("http://pda.intertops.com/German/selectbet.asp?" + @sportqueries[sport]) { |strings|			
 				strings.scan(@reg_expr_uebersicht[sport]).each do |id|
 					text = ""
 					get_request("http://pda.intertops.com/German/smbet.asp?" + @sportqueries[sport] + "&betno=#{id[0]}&smcstype=none&bettyp=SM") { |strings2|
@@ -70,7 +73,6 @@ class IntertopsScraper
 					}
 #game: team1, odd1, team2, odd2
 					@games[sport].concat(text.scan(@reg_expr_games[sport]))
-
 					if(text == "")
 						puts("Spieldaten konnten nicht gefunden werden (id=#{id[0]})")
 					end
@@ -96,9 +98,9 @@ class IntertopsScraper
 #					file.puts("<date>", "N/A", "</date>")
 #					file.puts("<time>", "N/A", "</time>")
 
-					file.puts("<team1 id=\"N/A\">", @teams[game[0]], "</team1>")
+					file.puts("<team1 id=\"N/A\">", game[0].strip, "</team1>")
 					file.puts("<odd1>", game[1], "</odd1>")
-					file.puts("<team2 id=\"N/A\">", @teams[game[2]], "</team2>")
+					file.puts("<team2 id=\"N/A\">", game[2].strip, "</team2>")
 					file.puts("<odd2>", game[3], "</odd2>")
 
 					file.puts("</game>")
@@ -116,7 +118,7 @@ end
 #nur wenn das Script direkt gestartet wird, wird dieser Teil ausgeführt
 if __FILE__ == $0
 
-sports = ['Baseball/MLB']
+sports = ['Football/NFL']
 is = IntertopsScraper.new(sports)
 is.get_odds()
 is.write_to_file()
