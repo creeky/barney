@@ -28,13 +28,13 @@ ARGV.each do |arg|
 end
 
 if(sports.empty?())
-	sports = ['Baseball/MLB']
+	sports = ['Baseball/MLB', 'Football/NFL']
 end
 if(outputdir == "")
 	outputdir = "output"
 end
 if(anbieter.empty?())
-	anbieter = ["pinnacle", "intertops", "expekt", "bwin", "sportingbet"]
+	anbieter = ["pinnacle", "intertops", "expekt", "bwin", "sportingbet", "bet-at-home"]
 end
 
 # pinnacle:
@@ -77,10 +77,22 @@ if(anbieter.include?("bwin"))
 	s.write_to_file( outputdir + "/bwin.xml")
 end
 
+# sportingbet:
+
 if(anbieter.include?("sportingbet"))
 	require 'sportingbet.rb'
 
 	s = SportingbetScraper.new(sports)
 	s.get_odds()
 	s.write_to_file( outputdir + "/sportingbet.xml")
+end
+
+# bet-at-home:
+
+if(anbieter.include?("bet-at-home"))
+	require 'bet-at-home.rb'
+
+	s = BetathomeScraper.new(sports)
+	s.get_odds()
+	s.write_to_file( outputdir + "/bet-at-home.xml")
 end

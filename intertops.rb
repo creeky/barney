@@ -26,6 +26,7 @@ class IntertopsScraper
 		}
 		@games = Hash.new()
 		@teams = {
+			#Baseball/MLB
 			"ARI"=>"Arizona D-Backs",
 			"ATL"=>"Atlanta Braves",
 			"BAL"=>"Baltimore Orioles",
@@ -55,7 +56,33 @@ class IntertopsScraper
 			"TAM"=>"Tampa Bay Rays",
 			"TEX"=>"Texas Rangers",
 			"TOR"=>"Toronto Blue Jays",
-			"WAS"=>"Washington Nationals"			
+			"WAS"=>"Washington Nationals",
+			
+			#Football/NFL
+			# gecheckt
+			"Kansas City Chiefs"=>"Kansas City Chiefs",
+			"San Diego Chargers"=>"San Diego Chargers",
+			"St Louis Rams"=>"St Louis Rams",
+			"Indianapolis Colts"=>"Indianapolis Colts",
+			"Cleveland Browns"=>"Cleveland Browns",
+			"Green Bay Packers"=>"Green Bay Packers",
+			"Pittsburgh Steelers"=>"Pittsburgh Steelers",
+			"Minnesota Vikings"=>"Minnesota Vikings",
+			"Houston Texans"=>"Houston Texans",
+			"San Francisco 49ers"=>"San Francisco 49ers",
+			"Oakland Raiders"=>"Oakland Raiders",
+			"New York Jets"=>"New York Jets",
+			"Carolina Panthers"=>"Carolina Panthers",
+			"Buffalo Bills"=>"Buffalo Bills",
+			"Miami Dolphins"=>"Miami Dolphins",
+			"New Orleans Saints"=>"New Orleans Saints",
+			"Dallas Cowboys"=>"Dallas Cowboys",
+			"Atlanta Falcons"=>"Atlanta Falcons",
+			"New York Giants"=>"New York Giants",
+			"Arizona Cardinals"=>"Arizona Cardinals",
+			"Washington Redskins"=>"Washington Redskins",
+			"Philadelphia Eagles"=>"Philadelphia Eagles"
+					
 		}
 	end
 
@@ -98,9 +125,9 @@ class IntertopsScraper
 #					file.puts("<date>", "N/A", "</date>")
 #					file.puts("<time>", "N/A", "</time>")
 
-					file.puts("<team1 id=\"N/A\">", game[0].strip, "</team1>")
+					file.puts("<team1 id=\"N/A\">", @teams[game[0].strip], "</team1>")
 					file.puts("<odd1>", game[1], "</odd1>")
-					file.puts("<team2 id=\"N/A\">", game[2].strip, "</team2>")
+					file.puts("<team2 id=\"N/A\">", @teams[game[2].strip], "</team2>")
 					file.puts("<odd2>", game[3], "</odd2>")
 
 					file.puts("</game>")
@@ -118,7 +145,7 @@ end
 #nur wenn das Script direkt gestartet wird, wird dieser Teil ausgeführt
 if __FILE__ == $0
 
-sports = ['Football/NFL']
+sports = ['Baseball/MLB', 'Football/NFL']
 is = IntertopsScraper.new(sports)
 is.get_odds()
 is.write_to_file()

@@ -60,10 +60,33 @@ class ExpektScraper
 			"Washington Nationals"=>"Washington Nationals",
 
 			#Football/NFL
-			"Buffalo Bills"=>"Buffalo Bills",
-			"New England Patriots"=>"New England Patriots",
+			# gecheckt
+			"Kansas City Chiefs"=>"Kansas City Chiefs",
 			"San Diego Chargers"=>"San Diego Chargers",
-			"Oakland Raiders"=>"Oakland Raiders"
+			"St Louis Rams"=>"St Louis Rams",
+			"Indianapolis Colts"=>"Indianapolis Colts",
+			"Cincinnati Bengals"=>"Cincinnati Bengals",
+			"Chicago Bears"=>"Chicago Bears",
+			"Cleveland Browns"=>"Cleveland Browns",
+			"Green Bay Packers"=>"Green Bay Packers",
+			"Tampa Bay Buccaneers"=>"Tampa Bay Buccaneers",
+			"New England Patriots"=>"New England Patriots",
+			"Houston Texans"=>"Houston Texans",
+			"San Francisco 49ers"=>"San Francisco 49ers",
+			"Pittsburgh Steelers"=>"Pittsburgh Steelers",
+			"Minnesota Vikings"=>"Minnesota Vikings",
+			"Carolina Panthers"=>"Carolina Panthers",
+			"Buffalo Bills"=>"Buffalo Bills",
+			"Oakland Raiders"=>"Oakland Raiders",
+			"New York Jets"=>"New York Jets",
+			"Dallas Cowboys"=>"Dallas Cowboys",
+			"Atlanta Falcons"=>"Atlanta Falcons",
+			"Miami Dolphins"=>"Miami Dolphins",
+			"New Orleans Saints"=>"New Orleans Saints",
+			"New York Giants"=>"New York Giants",
+			"Arizona Cardinals"=>"Arizona Cardinals",
+			"Washington Redskins"=>"Washington Redskins",
+			"Philadelphia Eagles"=>"Philadelphia Eagles"			
 		}
 	end
 

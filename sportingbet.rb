@@ -60,10 +60,33 @@ class SportingbetScraper
 			"Washington Nationals"=>"Washington Nationals",
 
 			#Football/NFL
-			"Buffalo"=>"Buffalo Bills",
-			"New England"=>"New England Patriots",
-			"San Diego"=>"San Diego Chargers",
-			"Oakland"=>"Oakland Raiders"
+			# wurden alle gecheckt!
+			"Green Bay Packers"=>"Green Bay Packers",
+			"Cleveland Browns"=>"Cleveland Browns",
+			"Indianapolis Colts"=>"Indianapolis Colts",
+			"St. Louis Rams"=>"St Louis Rams",
+			"Minnesota Vikings"=>"Minnesota Vikings",
+			"Pittsburgh Steelers"=>"Pittsburgh Steelers",
+			"New England Patriots"=>"New England Patriots",
+			"Tampa Bay Buccaneers"=>"Tampa Bay Buccaneers",
+			"San Diego Chargers"=>"San Diego Chargers",
+			"Kansas City Chiefs"=>"Kansas City Chiefs",
+			"San Francisco 49ers"=>"San Francisco 49ers",
+			"Houston Texans"=>"Houston Texans",
+			"Buffalo Bills"=>"Buffalo Bills",
+			"Carolina Panthers"=>"Carolina Panthers",
+			"New York Jets"=>"New York Jets",
+			"Oakland Raiders"=>"Oakland Raiders",
+			"Atlanta Falcons"=>"Atlanta Falcons",
+			"Dallas Cowboys"=>"Dallas Cowboys",
+			"Chicago Bears"=>"Chicago Bears",
+			"Cincinnati Bengals"=>"Cincinnati Bengals",
+			"New Orleans Saints"=>"New Orleans Saints",
+			"Miami Dolphins"=>"Miami Dolphins",
+			"Arizona Cardinals"=>"Arizona Cardinals",
+			"New York Giants"=>"New York Giants",
+			"Philadelphia Eagles"=>"Philadelphia Eagles",
+			"Washington Redskins"=>"Washington Redskins"			
 		}
 	end
 
